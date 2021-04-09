@@ -9,7 +9,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-
 class RegisterController extends Controller
 {
     /*
@@ -39,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('guest');
+        $this->middleware('guest');
     }
 
     /**
@@ -53,14 +52,14 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'nombres' => ['required', 'string', 'max:20'],
             'apellidos' => ['required', 'string', 'max:30'],
-            'username' => ['required', 'string', 'max:60','unique:users'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'tel_user' => ['required','string', 'max:15'],
             'id_doc_user' => ['required','integer'],
-            'doc_user' => ['required','string', 'max:120'],
+            'doc_user' => ['required', 'string', 'max:20'],
+            'tel_user' => ['required','string', 'max:15'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'max:60','unique:users'],
+            'password' => ['required', 'string', 'min:8','max:255', 'confirmed'],
             'id_pais_user' => ['required','integer'],
-            'id_rol_user' => ['required','integer'],
+            'id_rol_user' => ['required','integer']
         ]);
     }
 
@@ -75,12 +74,12 @@ class RegisterController extends Controller
         return User::create([
             'nombres' => $data['nombres'],
             'apellidos' => $data['apellidos'],
+            'id_doc_user' => $data['id_doc_user'],
+            'doc_user' => $data['doc_user'],
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'tel_user' => $data['tel_user'],
-            'id_doc_user' => $data['id_doc_user'],
-            'doc_user' => $data['doc_user'],
             'id_pais_user' => $data['id_pais_user'],
             'id_rol_user' => $data['id_rol_user']
         ]);

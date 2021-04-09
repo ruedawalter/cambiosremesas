@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
-Route::get('paises', ['paises'=>'PaisController@index', 'as'=>'paises.index']);
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Bancos
+Route::resource('bancos','BancoController');
+// Route::get('bancos', ['uses'=>'BancoController@index', 'as'=>'bancos.index']);
+// Route::get('bancos/{id}/edit/','BancoController@edit');
+
