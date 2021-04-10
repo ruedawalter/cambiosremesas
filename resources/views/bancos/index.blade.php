@@ -40,7 +40,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-right">
-                <a class="btn btn-success mb-2" id="new-banco" data-toggle="modal">Nuevo</a>
+                <a class="btn btn-primary mb-2" id="new-banco" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
             </div>
         </div>
     </div>
@@ -48,12 +48,13 @@
         <span><label type="hidden" name="alert" id="alert"></label></span>
       </div>
 
-    <table class="table table-bordered data-table">
+    <table class="table table-bordered data-table table-responsive mx-auto nowrap" style="width:100%">
         <thead>
             <tr>
-                <th width="80px">No</th>
+                <th width="3%">No</th>
+                <th width="3%">Identificador</th>
                 <th>Banco</th>
-                <th width="120px">Acción</th>
+                <th width="100px">Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -98,7 +99,31 @@
 </div>
 </div>
 {{-- Fin de modal --}}
+{{-- Inicio de modal View --}}
+<!-- Show user modal -->
+<div class="modal fade" id="crud-modal-show" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="userCrudModal-show"></h4>
+            </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-xs-2 col-sm-2 col-md-2"></div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 ">
+                        <table class="table-responsive ">
+                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snum_banco"></td></h3></tr>
+                            <tr height="50px"><td><strong>Banco:</strong></td><h3><td id="snom_banco"></td></h3></tr>
+                            <tr><td></td><td style="text-align: right "><a href="" class="btn btn-danger" id="btn-ok">OK</a> </td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+{{-- Fin de View --}}
 </body>
 <script type="text/javascript">
 
@@ -116,6 +141,7 @@
         ajax: "{{ route('bancos.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'id', name: 'id'},
             {data: 'nom_banco', name: 'nom_banco'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
@@ -149,17 +175,19 @@
 
                   $('#bancoForm').trigger('reset');
                   $('#crud-modal').modal('hide');
+                  $('#btn-save').html('Guardar');
                   table.draw();
             },
               error: function (data) {
                 var banco = $('#nom_banco').val();
+                $('#btn-save').html('Guardar');
                 $('#bancoForm').trigger('reset');
                 $('#crud-modal').modal('hide');
                   table.draw();
                 alert('El banco ' + banco + ' se encuentra registrado' );
                 //   $('#userCrudModal').html("Bancos");
-                //   console.log('Error:', data);
-               $('#btn-save').html('Guardar');
+                  console.log('Error:', data);
+
               }
       });
     });
@@ -174,6 +202,44 @@
             });
 
     // fin boton cancelar
+    //editar banco
+    /* Edit customer */
+$('body').on('click','.edit-banco', function () {
+    var banco_id = $(this).data('id');
+    $.get('bancos/'+banco_id+'/edit', function (data) {
+        $('#userCrudModal').html("Editar Banco");
+        $('#btn-update').val("Update");
+        $('#btn-save').prop('disabled',false);
+        $('#btn-save').html('Guardar');
+        $('#crud-modal').modal('show');
+        $('#id').val(data.id);
+        $('#nom_banco').val(data.nom_banco);
+    })
+});
+    //fin editar banco
+    //comienzo de view
+    /* Show customer */
+$('body').on('click', '.view-banco', function () {
+    var banco_id = $(this).data('id');
+   $.get('bancos/'+banco_id+'/edit', function (data) {
+
+    $('#snum_banco').html(data.id);
+    $('#snom_banco').html(data.nom_banco);
+    })
+    $('#userCrudModal-show').html("Detalle Banco");
+    $('#crud-modal-show').modal('show');
+});
+    //fin de view
+//inicio boton Ok view
+    //inicio boton cancelar
+         $('#btn-ok').click(function () {
+            $('#snom_banco').html('');
+            $('#crud-modal-show').modal('hide');
+            });
+
+    // fin boton cancelar
+//Fin boton ok view
+
   });
 </script>
 </html>

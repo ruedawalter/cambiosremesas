@@ -24,5 +24,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Bancos
 Route::resource('bancos','BancoController');
 // Route::get('bancos', ['uses'=>'BancoController@index', 'as'=>'bancos.index']);
-// Route::get('bancos/{id}/edit/','BancoController@edit');
+ Route::get('bancos/{id}/edit/','BancoController@edit');
+
 
