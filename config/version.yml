@@ -1,0 +1,15 @@
+git:
+  from: local
+  commit:
+    local: 'git rev-parse --verify HEAD'
+    remote: 'git ls-remote {$repository}'
+  branch: refs/heads/master #Escribir la rama de nuestro proyecto (main/master)
+  repository: ''
+  version:
+    local: 'git describe --tags' #agregar --tags
+    remote: 'git ls-remote {$repository} | grep tags/ | grep -v {} | cut -d / -f 3 | sort --version-sort | tail -1'
+    matcher: '/^(?P<label>[v|V]*[er]*[sion]*)[\.|\s]*(?P<major>0|[1-9]\d*)\.(?P<minor>0|[1-9]\d*)\.(?P<patch>0|[1-9]\d*)(?:-(?P<prerelease>(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+(?P<buildmetadata>[0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/'
+  timestamp:
+    local: 'git show -s --format=%ci'
+    remote: 'git show -s --format=%ci origin/main' # agregar la rama
+
