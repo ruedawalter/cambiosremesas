@@ -29,13 +29,13 @@ class BancoController extends Controller
                     ->addColumn('action', function($row){
                          $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" class="btn btn-secondary btn-sm view-banco"><i class="fas fa-eye"></i></a>';
                         $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm edit-banco"><i class="fas fa-pencil-square-o"></i></a>';
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm delete-banco"><i class="fas fa-trash"></i></a>';
+                        // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm delete-banco"><i class="fas fa-trash"></i></a>';
                             return $btn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
                     }
-        return view('bancos.index');
+        return view('bancos.index',compact('data'));
         }
 
 
@@ -58,16 +58,18 @@ class BancoController extends Controller
      */
     public function store(Request $request)
     {
-        // $r=$request->validate(['nom_banco' => 'required',]);
-        $existe = Banco::where([['nom_banco', '=', $request->input('nombanco')]])->first();
-        if ($existe === null) {
-            $user_id = Auth::id();
-            Banco::updateOrCreate(['id' => $request->id,'nom_banco' => $request->nombanco, 'id_user_mod' => $user_id]);
-                return redirect()->route('bancos.index');
-        }else{
-            $sessionManager->flash('mensaje', 'El Banco ya se encuentra registrado, no se realizaron cambios');
-            return redirect()->route('bancos.index');
-        }
+        // $r=$request->validate([
+        //     'nom_banco' => 'required',
+        // ]);
+
+$uId = $request->id;
+$user_mod = Auth::id();
+Banco::updateOrCreate(['id' => $uId],['nom_banco' => $request->nombanco, 'id_user_mod' => $user_mod]);
+if(empty($request->id))
+    $msg = 'User created successfully.';
+    else
+    $msg = 'User data is updated successfully';
+    return redirect()->route('bancos.index')->with('success',$msg);
 }
 
     /**
@@ -78,7 +80,10 @@ class BancoController extends Controller
      */
     public function show($id)
     {
-        //
+        $where = array('id' => $id);
+        $data = Banco::where($where)->first();
+        return Response::json($data);
+//return view('users.show',compact('user'));
     }
 
     /**
@@ -89,7 +94,9 @@ class BancoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $where = array('id' => $id);
+        $data = Banco::where($where)->first();
+        return response()->json($data);
     }
 
     /**
