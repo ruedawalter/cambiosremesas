@@ -180,7 +180,7 @@ error=false
             $(this).html('Cancelando....');
             $('#documentoForm').trigger('reset');
             $('#crud-modal').modal('hide');
-             table.draw();
+             // table.draw();
              $(this).html('Cancelar');
             });
 

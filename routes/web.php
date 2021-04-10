@@ -27,6 +27,10 @@ Route::get('bancos/{id}/edit/','BancoController@edit');
  // Documentos
 Route::resource('documentos','DocumentoController');
 Route::get('documentos/{id}/edit/','DocumentoController@edit');
+//Estados
+Route::resource('estados','EstadoController');
+Route::get('estados/{id}/edit/','EstadoController@edit');
+
 
 
 

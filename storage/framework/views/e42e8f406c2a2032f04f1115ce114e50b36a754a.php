@@ -1,19 +1,19 @@
 
-    @include('layouts._head_table')
+    <?php echo $__env->make('layouts._head_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <body>
-    @include('layouts._nav_table')
+    <?php echo $__env->make('layouts._nav_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
             <div class="card-header shadow">
-                <h3 class="card-title"><i class="far fa-id-card"></i>  {{($titulo)}}</h3>
+                <h3 class="card-title"><i class="fas fa-info"></i>  <?php echo e(($titulo)); ?></h3>
                 <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-primary mb-2" id="new-documento" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+                            <a class="btn btn-primary mb-2" id="new-estado" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         <tr>
                             <th width="3%">No</th>
                             <th width="3%">Identificador</th>
-                            <th>Documento</th>
+                            <th>estado</th>
                             <th width="100px">Acción</th>
                         </tr>
                     </thead>
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<!--Modal de agregar y editar documento -->
+<!--Modal de agregar y editar estado -->
 <div class="modal fade" id="crud-modal" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
@@ -46,27 +46,22 @@
                 <h4 class="modal-title" id="userCrudModal"></h4>
             </div>
         <div class="modal-body">
-            <form name="documentoForm" id="documentoForm"> {{--action="{{ route('documentos.store') }}" method="POST"> --}}
-                     {{-- @csrf --}}
+            <form name="estadoForm" id="estadoForm"> 
+                     
             <input type="hidden" name="id" id="id" >
-            {{-- @csrf --}}
+            
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>documento:</strong>
-                        <input type="text" name="documento" id="documento" class="form-control" placeholder="Ingrese el Nombre del documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                        <strong>estado:</strong>
+                        <input type="text" name="estado" id="estado" class="form-control" placeholder="Ingrese el Nombre del estado" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
-            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Email:</strong>
-                    <input type="text" name="email" id="email" class="form-control" placeholder="Email" onchange="validate()">
-                </div>
-            </div> --}}
+            
 
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled>{{__('Save')}}</button>
-                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger">{{__('Cancel')}}</a>
+                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled><?php echo e(__('Save')); ?></button>
+                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger"><?php echo e(__('Cancel')); ?></a>
                     </div>
                 </div>
             </form>
@@ -74,8 +69,8 @@
     </div>
 </div>
 </div>
-{{-- Fin de modal --}}
-{{-- Inicio de modal View --}}
+
+
 <!-- Show user modal -->
 <div class="modal fade" id="crud-modal-show" aria-hidden="true" >
     <div class="modal-dialog">
@@ -88,8 +83,8 @@
                 <div class="col-xs-2 col-sm-2 col-md-2"></div>
                     <div class="col-xs-10 col-sm-10 col-md-10 ">
                         <table class="table-responsive ">
-                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="sndocumento"></td></h3></tr>
-                            <tr height="50px"><td><strong>documento:</strong></td><h3><td id="sdocumento"></td></h3></tr>
+                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snestado"></td></h3></tr>
+                            <tr height="50px"><td><strong>estado:</strong></td><h3><td id="sestado"></td></h3></tr>
                             <tr><td></td><td style="text-align: right "><a href="" class="btn btn-primary" id="btn-ok">OK</a> </td></tr>
                         </table>
                     </div>
@@ -99,18 +94,18 @@
     </div>
 </div>
 
-{{-- Fin de View --}}
+
 </body>
-@include('layouts._footer')
+<?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script type="text/javascript">
 error=false
 
         function validate()
         {
-            if(document.documentoForm.nom_documento.value !='' )
-            document.documentoForm.btnsave.disabled=false
+            if(document.estadoForm.estado.value !='' )
+            document.estadoForm.btnsave.disabled=false
             else
-            document.documentoForm.btnsave.disabled=true
+            document.estadoForm.btnsave.disabled=true
 
 
         }
@@ -126,22 +121,22 @@ error=false
         serverSide: true,
         responsive: true,
         language: {"url": "js/Spanish.json"},
-        ajax: "{{ route('documentos.index') }}",
+        ajax: "<?php echo e(route('estados.index')); ?>",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
-            {data: 'documento', name: 'documento', orderable: false, searchable: true},
+            {data: 'estado', name: 'estado', orderable: false, searchable: true},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-    //agregar documento
+    //agregar estado
     /* When click New customer button */
-        $('#new-documento').click(function () {
-            // $('#btn-save').val('create-documento');
+        $('#new-estado').click(function () {
+            // $('#btn-save').val('create-estado');
             $('#id').val('');
-            $('#documento').val('');
-            $('#documentoForm').trigger('reset');
-            $('#userCrudModal').html('Agregar documento');
+            $('#estado').val('');
+            $('#estadoForm').trigger('reset');
+            $('#userCrudModal').html('Agregar estado');
             $('#crud-modal').modal('show');
         });
     //fin
@@ -150,30 +145,30 @@ error=false
             e.preventDefault();
             $(this).html('Guardando....');
             $.ajax({
-              data: $('#documentoForm').serialize(),
-              url: "{{ route('documentos.store') }}",
+              data: $('#estadoForm').serialize(),
+              url: "<?php echo e(route('estados.store')); ?>",
               type: "POST",
               dataType: 'json',
               success: function (data) {
                   $("#alert").show();
-                    $("#alert").html('<h6 style="margin-top: 12px;" class="alert alert-success">documento  guardado  correctamente</h6>');
+                    $("#alert").html('<h6 style="margin-top: 12px;" class="alert alert-success">estado  guardado  correctamente</h6>');
                     setTimeout(function() {
                     $('#alert').fadeOut('slow');
                     }, 2500);
 
-                  $('#documentoForm').trigger('reset');
+                  $('#estadoForm').trigger('reset');
                   $('#crud-modal').modal('hide');
                   $('#btn-save').html('Guardar');
                   table.draw();
             },
               error: function (data) {
-                var documento = $('#documento').val();
+                var estado = $('#estado').val();
                 $('#btn-save').html('Guardar');
-                $('#documentoForm').trigger('reset');
+                $('#estadoForm').trigger('reset');
                 $('#crud-modal').modal('hide');
                   table.draw();
-                alert('El documento ' + documento + ' se encuentra registrado' );
-                //   $('#userCrudModal').html("documentos");
+                alert('El estado ' + estado + ' se encuentra registrado' );
+                //   $('#userCrudModal').html("estados");
                   console.log('Error:', data);
 
               }
@@ -183,46 +178,46 @@ error=false
     //inicio boton cancelar
          $('#btn-cancel').click(function () {
             $(this).html('Cancelando....');
-            $('#documentoForm').trigger('reset');
+            $('#estadoForm').trigger('reset');
             $('#crud-modal').modal('hide');
              // table.draw();
              $(this).html('Cancelar');
             });
 
     // fin boton cancelar
-    //editar documento
+    //editar estado
     /* Edit customer */
-$('body').on('click','.edit-documento', function () {
-    var documento_id = $(this).data('id');
-    $.get('documentos/'+documento_id+'/edit', function (data) {
-        $('#userCrudModal').html("Editar documento");
+$('body').on('click','.edit-estado', function () {
+    var estado_id = $(this).data('id');
+    $.get('estados/'+estado_id+'/edit', function (data) {
+        $('#userCrudModal').html("Editar estado");
         $('#btn-update').val("Update");
         $('#btn-save').prop('disabled',false);
         $('#btn-save').html('Guardar');
         $('#crud-modal').modal('show');
         $('#id').val(data.id);
-        $('#documento').val(data.documento);
+        $('#estado').val(data.estado);
     })
 });
-    //fin editar documento
+    //fin editar estado
     //comienzo de view
     /* Show customer */
-$('body').on('click', '.view-documento', function () {
-    var documento_id = $(this).data('id');
-   $.get('documentos/'+documento_id+'/edit', function (data) {
+$('body').on('click', '.view-estado', function () {
+    var estado_id = $(this).data('id');
+   $.get('estados/'+estado_id+'/edit', function (data) {
 
-    $('#sndocumento').html(data.id);
-    $('#sdocumento').html(data.documento);
+    $('#snestado').html(data.id);
+    $('#sestado').html(data.estado);
     })
-    $('#userCrudModal-show').html("Detalle documento");
+    $('#userCrudModal-show').html("Detalle estado");
     $('#crud-modal-show').modal('show');
 });
     //fin de view
 //inicio boton Ok view
     //inicio boton cancelar
          $('#btn-ok').click(function () {
-            $('#sdocumento').html('');
-            $('#sndocumento').html('');
+            $('#sestado').html('');
+            $('#snestado').html('');
             $('#crud-modal-show').modal('hide');
             });
 
@@ -231,4 +226,4 @@ $('body').on('click', '.view-documento', function () {
 
   });
 </script>
-</html>
+</html><?php /**PATH C:\laragon\www\cambios\resources\views/estados/index.blade.php ENDPATH**/ ?>
