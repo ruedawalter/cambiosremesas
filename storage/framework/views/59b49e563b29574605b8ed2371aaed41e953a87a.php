@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -65,19 +65,19 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
+            <?php if(Route::has('login')): ?>
                 <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">{{__('Home')}}</a>
-                    @else
-                        <a href="{{ route('login') }}">{{__('Login')}}</a>
+                    <?php if(auth()->guard()->check()): ?>
+                        <a href="<?php echo e(url('/home')); ?>"><?php echo e(__('Home')); ?></a>
+                    <?php else: ?>
+                        <a href="<?php echo e(route('login')); ?>"><?php echo e(__('Login')); ?></a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">{{__('Register')}}</a>
-                        @endif
-                    @endauth
+                        <?php if(Route::has('register')): ?>
+                            <a href="<?php echo e(route('register')); ?>"><?php echo e(__('Register')); ?></a>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
-            @endif
+            <?php endif; ?>
 
             <div class="content">
                 <div class="title m-b-md">
@@ -97,5 +97,9 @@
             </div>
         </div>
     </body>
-    @include('layouts._footer')
+    <footer class="bg-white text-center text-black-50 ">
+            <?php echo e(config('app.name')); ?>  | Copyrigths @ <?php echo e(date('Y')); ?> WR Soluciones <a class="img-fluid " href="https://wa.me/51917921461">
+            <img class="img-fluid" src="<?php echo e(asset('img/whatsapp.png')); ?>" width="15" height="15"></a>
+</footer>
 </html>
+<?php /**PATH C:\laragon\www\cambios\resources\views/inicio.blade.php ENDPATH**/ ?>

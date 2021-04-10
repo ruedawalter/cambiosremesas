@@ -1,65 +1,41 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <title>Bancos - Cambios y Remesas</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-      <title>{{ config('app.name', 'Cambios y Remesas') }}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" />
-    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
-    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('fonts/awesome/font-awesome.min.css')}}">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.5/js/responsive.bootstrap.min.js"></script>
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    @include('layouts._head_table')
 
-    <script>
-        error=false
-
-        function validate()
-        {
-            if(document.bancoForm.nom_banco.value !='' )
-            document.bancoForm.btnsave.disabled=false
-            else
-            document.bancoForm.btnsave.disabled=true
-
-
-        }
-    </script>
-</head>
 <body>
+    @include('layouts._nav_table')
 <div class="container">
-    <h1>Cambios y Remesas<br/>Bancos</h1>
-    <div class="row">
-        <div class="col-lg-12 margin-tb">
-            <div class="pull-right">
-                <a class="btn btn-primary mb-2" id="new-banco" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <div class="card-header shadow">
+                <h3 class="card-title"><i class="fas fa-university"></i>  {{($titulo)}}</h3>
+                <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
+
+                <div class="row">
+                    <div class="col-lg-12 margin-tb">
+                        <div class="pull-right">
+                            <a class="btn btn-primary mb-2" id="new-banco" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+                        </div>
+                    </div>
+                </div>
             </div>
+                 <div class="alert Alert-success">
+                    <span><label type="hidden" name="alert" id="alert"></label></span>
+                  </div>
+
+                <table class="table table-bordered table-hover data-table table-responsive mx-auto nowrap table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th width="3%">No</th>
+                            <th width="3%">Identificador</th>
+                            <th>Banco</th>
+                            <th width="100px">Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
         </div>
     </div>
-     <div class="alert Alert-success">
-        <span><label type="hidden" name="alert" id="alert"></label></span>
-      </div>
-
-    <table class="table table-bordered data-table table-responsive mx-auto nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th width="3%">No</th>
-                <th width="3%">Identificador</th>
-                <th>Banco</th>
-                <th width="100px">Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-        </tbody>
-    </table>
 </div>
 
 <!--Modal de agregar y editar banco -->
@@ -114,7 +90,7 @@
                         <table class="table-responsive ">
                             <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snum_banco"></td></h3></tr>
                             <tr height="50px"><td><strong>Banco:</strong></td><h3><td id="snom_banco"></td></h3></tr>
-                            <tr><td></td><td style="text-align: right "><a href="" class="btn btn-danger" id="btn-ok">OK</a> </td></tr>
+                            <tr><td></td><td style="text-align: right "><a href="" class="btn btn-primary" id="btn-ok">OK</a> </td></tr>
                         </table>
                     </div>
                 </div>
@@ -125,7 +101,19 @@
 
 {{-- Fin de View --}}
 </body>
+@include('layouts._footer')
 <script type="text/javascript">
+error=false
+
+        function validate()
+        {
+            if(document.bancoForm.nom_banco.value !='' )
+            document.bancoForm.btnsave.disabled=false
+            else
+            document.bancoForm.btnsave.disabled=true
+
+
+        }
 
   $(function () {
     $.ajaxSetup({
@@ -142,7 +130,7 @@
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
-            {data: 'nom_banco', name: 'nom_banco'},
+            {data: 'nom_banco', name: 'nom_banco', orderable: false, searchable: true},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
