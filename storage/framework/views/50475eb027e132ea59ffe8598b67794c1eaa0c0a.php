@@ -7,13 +7,13 @@
     <div class="card" style="width: 100%;">
         <div class="card-body">
             <div class="card-header shadow">
-                <h3 class="card-title"><i class="fas fa-university"></i>  <?php echo e(($titulo)); ?></h3>
+                <h3 class="card-title"><i class="fas fa-globe"></i>  <?php echo e(($titulo)); ?></h3>
                 <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-primary mb-2" id="new-banco" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+                            <a class="btn btn-primary mb-2" id="new-pais" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
                         </div>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         <tr>
                             <th width="3%">No</th>
                             <th width="3%">Identificador</th>
-                            <th>Banco</th>
+                            <th>Pais</th>
                             <th width="100px">Acción</th>
                         </tr>
                     </thead>
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<!--Modal de agregar y editar banco -->
+<!--Modal de agregar y editar pais -->
 <div class="modal fade" id="crud-modal" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
@@ -46,15 +46,15 @@
                 <h4 class="modal-title" id="userCrudModal"></h4>
             </div>
         <div class="modal-body">
-            <form name="bancoForm" id="bancoForm"> 
+            <form name="paisForm" id="paisForm"> 
                      
             <input type="hidden" name="id" id="id" >
             
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Banco:</strong>
-                        <input type="text" name="nombanco" id="nom_banco" class="form-control" placeholder="Ingrese el Nombre del banco" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                        <strong>Pais:</strong>
+                        <input type="text" name="nom_pais" id="nom_pais" class="form-control" placeholder="Ingrese el Nombre del pais" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
             
@@ -83,8 +83,8 @@
                 <div class="col-xs-2 col-sm-2 col-md-2"></div>
                     <div class="col-xs-10 col-sm-10 col-md-10 ">
                         <table class="table-responsive ">
-                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snum_banco"></td></h3></tr>
-                            <tr height="50px"><td><strong>Banco:</strong></td><h3><td id="snom_banco"></td></h3></tr>
+                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snpais"></td></h3></tr>
+                            <tr height="50px"><td><strong>pais:</strong></td><h3><td id="spais"></td></h3></tr>
                             <tr><td></td><td style="text-align: right "><a href="" class="btn btn-primary" id="btn-ok">OK</a> </td></tr>
                         </table>
                     </div>
@@ -102,10 +102,10 @@ error=false
 
         function validate()
         {
-            if(document.bancoForm.nom_banco.value !='' )
-            document.bancoForm.btnsave.disabled=false
+            if(document.paisForm.nom_pais.value !='' )
+            document.paisForm.btnsave.disabled=false
             else
-            document.bancoForm.btnsave.disabled=true
+            document.paisForm.btnsave.disabled=true
 
 
         }
@@ -121,22 +121,22 @@ error=false
         serverSide: true,
         responsive: true,
         language: {"url": "js/Spanish.json"},
-        ajax: "<?php echo e(route('bancos.index')); ?>",
+        ajax: "<?php echo e(route('paises.index')); ?>",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
-            {data: 'nom_banco', name: 'nom_banco', orderable: false, searchable: true},
+            {data: 'nom_pais', name: 'nom_pais', orderable: false, searchable: true},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-    //agregar banco
+    //agregar pais
     /* When click New customer button */
-        $('#new-banco').click(function () {
-            // $('#btn-save').val('create-banco');
+        $('#new-pais').click(function () {
+            // $('#btn-save').val('create-pais');
             $('#id').val('');
-            $('#nom_banco').val('');
-            $('#bancoForm').trigger('reset');
-            $('#userCrudModal').html('Agregar Banco');
+            $('#nom_pais').val('');
+            $('#paisForm').trigger('reset');
+            $('#userCrudModal').html('Agregar pais');
             $('#crud-modal').modal('show');
         });
     //fin
@@ -145,30 +145,30 @@ error=false
             e.preventDefault();
             $(this).html('Guardando....');
             $.ajax({
-              data: $('#bancoForm').serialize(),
-              url: "<?php echo e(route('bancos.store')); ?>",
+              data: $('#paisForm').serialize(),
+              url: "<?php echo e(route('paises.store')); ?>",
               type: "POST",
               dataType: 'json',
               success: function (data) {
                   $("#alert").show();
-                    $("#alert").html('<h6 style="margin-top: 12px;" class="alert alert-success">Banco  guardado  correctamente</h6>');
+                    $("#alert").html('<h6 style="margin-top: 12px;" class="alert alert-success">pais  guardado  correctamente</h6>');
                     setTimeout(function() {
                     $('#alert').fadeOut('slow');
                     }, 2500);
 
-                  $('#bancoForm').trigger('reset');
+                  $('#paisForm').trigger('reset');
                   $('#crud-modal').modal('hide');
                   $('#btn-save').html('Guardar');
                   table.draw();
             },
               error: function (data) {
-                var banco = $('#nom_banco').val();
+                var pais = $('#nom_pais').val();
                 $('#btn-save').html('Guardar');
-                $('#bancoForm').trigger('reset');
+                $('#paisForm').trigger('reset');
                 $('#crud-modal').modal('hide');
                   table.draw();
-                alert('El banco ' + banco + ' se encuentra registrado' );
-                //   $('#userCrudModal').html("Bancos");
+                alert('El pais ' + pais + ' se encuentra registrado' );
+                //   $('#userCrudModal').html("paiss");
                   console.log('Error:', data);
 
               }
@@ -178,45 +178,46 @@ error=false
     //inicio boton cancelar
          $('#btn-cancel').click(function () {
             $(this).html('Cancelando....');
-            $('#bancoForm').trigger('reset');
+            $('#paisForm').trigger('reset');
             $('#crud-modal').modal('hide');
              // table.draw();
              $(this).html('Cancelar');
             });
 
     // fin boton cancelar
-    //editar banco
+    //editar pais
     /* Edit customer */
-$('body').on('click','.edit-banco', function () {
-    var banco_id = $(this).data('id');
-    $.get('bancos/'+banco_id+'/edit', function (data) {
-        $('#userCrudModal').html("Editar Banco");
+$('body').on('click','.edit-pais', function () {
+    var pais_id = $(this).data('id');
+    $.get('paises/'+pais_id+'/edit', function (data) {
+        $('#userCrudModal').html("Editar pais");
         $('#btn-update').val("Update");
         $('#btn-save').prop('disabled',false);
         $('#btn-save').html('Guardar');
         $('#crud-modal').modal('show');
         $('#id').val(data.id);
-        $('#nom_banco').val(data.nom_banco);
+        $('#nom_pais').val(data.nom_pais);
     })
 });
-    //fin editar banco
+    //fin editar pais
     //comienzo de view
     /* Show customer */
-$('body').on('click', '.view-banco', function () {
-    var banco_id = $(this).data('id');
-   $.get('bancos/'+banco_id+'/edit', function (data) {
+$('body').on('click', '.view-pais', function () {
+    var pais_id = $(this).data('id');
+   $.get('paises/'+pais_id+'/edit', function (data) {
 
-    $('#snum_banco').html(data.id);
-    $('#snom_banco').html(data.nom_banco);
+    $('#snpais').html(data.id);
+    $('#spais').html(data.nom_pais);
     })
-    $('#userCrudModal-show').html("Detalle Banco");
+    $('#userCrudModal-show').html("Detalle pais");
     $('#crud-modal-show').modal('show');
 });
     //fin de view
 //inicio boton Ok view
     //inicio boton cancelar
          $('#btn-ok').click(function () {
-            $('#snom_banco').html('');
+            $('#spais').html('');
+            $('#snpais').html('');
             $('#crud-modal-show').modal('hide');
             });
 
@@ -225,4 +226,4 @@ $('body').on('click', '.view-banco', function () {
 
   });
 </script>
-</html><?php /**PATH C:\laragon\www\cambios\resources\views/bancos/index.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\laragon\www\cambios\resources\views/paises/index.blade.php ENDPATH**/ ?>

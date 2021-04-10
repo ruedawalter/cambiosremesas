@@ -30,6 +30,10 @@ Route::get('documentos/{id}/edit/','DocumentoController@edit');
 //Estados
 Route::resource('estados','EstadoController');
 Route::get('estados/{id}/edit/','EstadoController@edit');
+//paises
+Route::resource('paises','PaisController');
+Route::get('paises/{id}/edit/','PaisController@edit');
+
 
 
 
