@@ -1,5 +1,11 @@
+<div>
+    <table  height="10px">
+        <td></td>
+    </table>
+</div>
+
 <div class="flex-center position-ref">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow" style="border-radius: 20px;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -35,7 +41,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i>
                                         {{ __('Logout') }}
                                     </a>
 
@@ -49,4 +55,9 @@
             </div>
         </div>
     </nav>
+</div>
+<div>
+    <table  height="10px">
+        <td></td>
+    </table>
 </div>

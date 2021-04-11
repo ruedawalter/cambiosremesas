@@ -68,7 +68,7 @@
             <?php if(Route::has('login')): ?>
                 <div class="top-right links">
                     <?php if(auth()->guard()->check()): ?>
-                        <a href="<?php echo e(url('/home')); ?>"><?php echo e(__('Home')); ?></a>
+                        <a href="<?php echo e(url('/home')); ?>"><?php echo e(__('Dashboard')); ?></a>
                     <?php else: ?>
                         <a href="<?php echo e(route('login')); ?>"><?php echo e(__('Login')); ?></a>
 
@@ -97,9 +97,6 @@
             </div>
         </div>
     </body>
-    <footer class="bg-white text-center text-black-50 ">
-            <?php echo e(config('app.name')); ?>  | Copyrigths @ <?php echo e(date('Y')); ?> WR Soluciones <a class="img-fluid " href="https://wa.me/51917921461">
-            <img class="img-fluid" src="<?php echo e(asset('img/whatsapp.png')); ?>" width="15" height="15"></a>
-</footer>
+    <?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 </html>
 <?php /**PATH C:\laragon\www\cambios\resources\views/inicio.blade.php ENDPATH**/ ?>

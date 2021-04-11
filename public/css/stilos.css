@@ -1,11 +1,18 @@
 <!-- Styles -->
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
+            html{
+
+            }
+            body {
+                background-color: #e4e8f1;
+                color: #000000;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;
+            }
+            .container{
+               color: #000000;
+              font-color:#000000;
             }
 
             .full-height {
@@ -63,3 +70,36 @@
                   -webkit-box-shadow: 4px 4px 8px #999;
                   -moz-box-shadow: 4px 4px 8px #999;
                 }
+            .box-decoration-break: {
+              font-size:10px;
+              font-family:Verdana,Helvetica;
+              font-weight:bold;
+              font-color:white;
+              color:blue;
+              background:#638cb5;
+              border:0px;
+              width:80px;
+              height:19px;
+            }
+            .boton{
+              font-size:12px;
+              font-family:Verdana,Helvetica;
+              font-weight:bold;
+              font-color:#fff;
+              color:#fff;
+              background:#6291fc;
+              width:100px;
+              height:35px;
+               border: 1px solid rgba(0, 0, 0, 0.125);
+                  border-radius: 0.75rem;
+                  box-shadow: 4px 4px 8px #999;
+                  -webkit-box-shadow: 4px 4px 8px #999;
+                  -moz-box-shadow: 4px 4px 8px #999;
+            }
+            .btn{
+               border: 1px solid rgba(0, 0, 0, 0.125);
+                  border-radius: 0.50rem;
+                  box-shadow: 4px 4px 8px #999;
+                  -webkit-box-shadow: 4px 4px 8px #999;
+                  -moz-box-shadow: 4px 4px 8px #999;
+            }

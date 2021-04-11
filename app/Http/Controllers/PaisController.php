@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Banco;
+use App\Paise;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 
 
-class BancoController extends Controller
+class PaisController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,20 +23,20 @@ class BancoController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = Banco::orderBy('nom_banco','ASC')->get();
+            $data = Paise::orderBy('nom_pais','ASC')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                         $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" class="btn btn-secondary btn-sm view-banco" title="Ver"><i class="fas fa-eye"></i></a>';
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm edit-banco" title="Modificar"><i class="fas fa-pencil-square-o"></i></a>';
+                         $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" class="btn btn-secondary btn-sm view-pais" title="Ver"><i class="fas fa-eye"></i></a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm edit-pais" title="Modificar"><i class="fas fa-pencil-square-o"></i></a>';
                         // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm delete-banco"><i class="fas fa-trash"></i></a>';
                             return $btn;
                     })
                     ->rawColumns(['action'])
                     ->make(true);
                     }
-        $titulo='Bancos';
-        return view('bancos.index',compact('data','titulo'));
+        $titulo='Paises';
+        return view('paises.index',compact('data','titulo'));
         }
 
 
@@ -65,12 +65,12 @@ class BancoController extends Controller
 
 $uId = $request->id;
 $user_mod = Auth::id();
-Banco::updateOrCreate(['id' => $uId],['nom_banco' => $request->nombanco, 'id_user_mod' => $user_mod]);
+Paise::updateOrCreate(['id' => $uId],['nom_pais' => $request->nom_pais,'mon_pais' => $request->mon_pais, 'id_user_mod' => $user_mod]);
 if(empty($request->id))
     $msg = 'User created successfully.';
     else
     $msg = 'User data is updated successfully';
-    return redirect()->route('bancos.index')->with('success',$msg);
+    return redirect()->route('paises.index')->with('success',$msg);
 }
 
     /**
@@ -82,7 +82,7 @@ if(empty($request->id))
     public function show($id)
     {
         $where = array('id' => $id);
-        $data = Banco::where($where)->first();
+        $data = Paise::where($where)->first();
         return Response::json($data);
 //return view('users.show',compact('user'));
     }
@@ -96,7 +96,7 @@ if(empty($request->id))
     public function edit($id)
     {
         $where = array('id' => $id);
-        $data = Banco::where($where)->first();
+        $data = Paise::where($where)->first();
         return response()->json($data);
     }
 

@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-primary mb-2" id="new-banco" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+                            <a class="btn boton mb-2" id="new-banco" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled><?php echo e(__('Save')); ?></button>
-                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger"><?php echo e(__('Cancel')); ?></a>
+                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger" data-dismiss="modal"><?php echo e(__('Cancel')); ?></a>
                     </div>
                 </div>
             </form>
@@ -85,8 +85,11 @@
                         <table class="table-responsive ">
                             <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snum_banco"></td></h3></tr>
                             <tr height="50px"><td><strong>Banco:</strong></td><h3><td id="snom_banco"></td></h3></tr>
-                            <tr><td></td><td style="text-align: right "><a href="" class="btn btn-primary" id="btn-ok">OK</a> </td></tr>
+                            <tr><td></td></tr>
                         </table>
+                        <div class="justify-content-center">
+                            <a href="" class="btn btn-primary" data-dismiss="modal" id="btn-ok">OK</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -175,16 +178,7 @@ error=false
       });
     });
     //fin
-    //inicio boton cancelar
-         $('#btn-cancel').click(function () {
-            $(this).html('Cancelando....');
-            $('#bancoForm').trigger('reset');
-            $('#crud-modal').modal('hide');
-             // table.draw();
-             $(this).html('Cancelar');
-            });
 
-    // fin boton cancelar
     //editar banco
     /* Edit customer */
 $('body').on('click','.edit-banco', function () {
@@ -214,13 +208,7 @@ $('body').on('click', '.view-banco', function () {
 });
     //fin de view
 //inicio boton Ok view
-    //inicio boton cancelar
-         $('#btn-ok').click(function () {
-            $('#snom_banco').html('');
-            $('#crud-modal-show').modal('hide');
-            });
 
-    // fin boton cancelar
 //Fin boton ok view
 
   });

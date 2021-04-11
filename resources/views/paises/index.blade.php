@@ -1,19 +1,19 @@
 
-    <?php echo $__env->make('layouts._head_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    @include('layouts._head_table')
 
 <body>
-    <?php echo $__env->make('layouts._nav_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+    @include('layouts._nav_table')
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
             <div class="card-header shadow">
-                <h3 class="card-title"><i class="far fa-id-card"></i>  <?php echo e(($titulo)); ?></h3>
+                <h3 class="card-title"><i class="fas fa-globe"></i>  {{($titulo)}}</h3>
                 <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn boton mb-2" id="new-documento" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+                            <a class="btn boton" id="new-pais" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
                         </div>
                     </div>
                 </div>
@@ -27,8 +27,9 @@
                         <tr>
                             <th width="3%">No</th>
                             <th width="3%">Identificador</th>
-                            <th>Documento</th>
-                            <th width="100px">Acción</th>
+                            <th width="50%">Pais</th>
+                            <th width="5%">Moneda</th>
+                            <th width="10%">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +39,7 @@
     </div>
 </div>
 
-<!--Modal de agregar y editar documento -->
+<!--Modal de agregar y editar pais -->
 <div class="modal fade" id="crud-modal" aria-hidden="true" >
     <div class="modal-dialog">
         <div class="modal-content">
@@ -46,22 +47,33 @@
                 <h4 class="modal-title" id="userCrudModal"></h4>
             </div>
         <div class="modal-body">
-            <form name="documentoForm" id="documentoForm"> 
-                     
+            <form name="paisForm" id="paisForm"> {{--action="{{ route('paiss.store') }}" method="POST"> --}}
+                     {{-- @csrf --}}
             <input type="hidden" name="id" id="id" >
-            
+            {{-- @csrf --}}
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>documento:</strong>
-                        <input type="text" name="documento" id="documento" class="form-control" placeholder="Ingrese el Nombre del documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                        <strong>Pais:</strong>
+                        <input type="text" name="nom_pais" id="nom_pais" class="form-control" placeholder="Ingrese el Nombre del pais" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
-            
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Moneda:</strong>
+                        <input type="text" name="mon_pais" id="mon_pais" class="form-control" placeholder="Ingrese la moneda del pais" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                    </div>
+                </div>
+            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Email:</strong>
+                    <input type="text" name="email" id="email" class="form-control" placeholder="Email" onchange="validate()">
+                </div>
+            </div> --}}
 
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled><?php echo e(__('Save')); ?></button>
-                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger" data-dismiss="modal"><?php echo e(__('Cancel')); ?></a>
+                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled>{{__('Save')}}</button>
+                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger" data-dismiss="modal">{{__('Cancel')}}</a>
                     </div>
                 </div>
             </form>
@@ -69,8 +81,8 @@
     </div>
 </div>
 </div>
-
-
+{{-- Fin de modal --}}
+{{-- Inicio de modal View --}}
 <!-- Show user modal -->
 <div class="modal fade" id="crud-modal-show" aria-hidden="true" >
     <div class="modal-dialog">
@@ -83,8 +95,9 @@
                 <div class="col-xs-2 col-sm-2 col-md-2"></div>
                     <div class="col-xs-10 col-sm-10 col-md-10 ">
                         <table class="table-responsive ">
-                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="sndocumento"></td></h3></tr>
-                            <tr height="50px"><td><strong>documento:</strong></td><h3><td id="sdocumento"></td></h3></tr>
+                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snpais"></td></h3></tr>
+                            <tr height="50px"><td><strong>pais:</strong></td><h3><td id="spais"></td></h3></tr>
+                            <tr height="50px"><td><strong>Moneda:</strong></td><h3><td id="smpais"></td></h3></tr>
                             <tr><td></td></tr>
                         </table>
                         <div class="justify-content-center">
@@ -97,18 +110,18 @@
     </div>
 </div>
 
-
+{{-- Fin de View --}}
 </body>
-<?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+@include('layouts._footer')
 <script type="text/javascript">
 error=false
 
         function validate()
         {
-            if(document.documentoForm.nom_documento.value !='' )
-            document.documentoForm.btnsave.disabled=false
+            if(document.paisForm.nom_pais.value !='' )
+            document.paisForm.btnsave.disabled=false
             else
-            document.documentoForm.btnsave.disabled=true
+            document.paisForm.btnsave.disabled=true
 
 
         }
@@ -124,22 +137,24 @@ error=false
         serverSide: true,
         responsive: true,
         language: {"url": "js/Spanish.json"},
-        ajax: "<?php echo e(route('documentos.index')); ?>",
+        ajax: "{{ route('paises.index') }}",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
-            {data: 'documento', name: 'documento', orderable: false, searchable: true},
+            {data: 'nom_pais', name: 'nom_pais', orderable: false, searchable: true},
+            {data: 'mon_pais', name: 'mon_pais'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-    //agregar documento
+    //agregar pais
     /* When click New customer button */
-        $('#new-documento').click(function () {
-            // $('#btn-save').val('create-documento');
+        $('#new-pais').click(function () {
+            // $('#btn-save').val('create-pais');
             $('#id').val('');
-            $('#documento').val('');
-            $('#documentoForm').trigger('reset');
-            $('#userCrudModal').html('Agregar documento');
+            $('#nom_pais').val('');
+            $('#mon_pais').val('');
+            $('#paisForm').trigger('reset');
+            $('#userCrudModal').html('Agregar pais');
             $('#crud-modal').modal('show');
         });
     //fin
@@ -148,66 +163,66 @@ error=false
             e.preventDefault();
             $(this).html('Guardando....');
             $.ajax({
-              data: $('#documentoForm').serialize(),
-              url: "<?php echo e(route('documentos.store')); ?>",
+              data: $('#paisForm').serialize(),
+              url: "{{ route('paises.store') }}",
               type: "POST",
               dataType: 'json',
               success: function (data) {
                   $("#alert").show();
-                    $("#alert").html('<h6 style="margin-top: 12px;" class="alert alert-success">documento  guardado  correctamente</h6>');
+                    $("#alert").html('<h6 style="margin-top: 12px;" class="alert alert-success">pais  guardado  correctamente</h6>');
                     setTimeout(function() {
                     $('#alert').fadeOut('slow');
                     }, 2500);
 
-                  $('#documentoForm').trigger('reset');
+                  $('#paisForm').trigger('reset');
                   $('#crud-modal').modal('hide');
                   $('#btn-save').html('Guardar');
                   table.draw();
             },
               error: function (data) {
-                var documento = $('#documento').val();
+                var pais = $('#nom_pais').val();
                 $('#btn-save').html('Guardar');
-                $('#documentoForm').trigger('reset');
+                $('#paisForm').trigger('reset');
                 $('#crud-modal').modal('hide');
-                  table.draw();
-                alert('El documento ' + documento + ' se encuentra registrado' );
-                //   $('#userCrudModal').html("documentos");
+                table.draw();
+                alert('El pais ' + pais + ' se encuentra registrado' );
+                //   $('#userCrudModal').html("paiss");
                   console.log('Error:', data);
 
               }
       });
     });
     //fin
-    //editar documento
+    //editar pais
     /* Edit customer */
-$('body').on('click','.edit-documento', function () {
-    var documento_id = $(this).data('id');
-    $.get('documentos/'+documento_id+'/edit', function (data) {
-        $('#userCrudModal').html("Editar documento");
+$('body').on('click','.edit-pais', function () {
+    var pais_id = $(this).data('id');
+    $.get('paises/'+pais_id+'/edit', function (data) {
+        $('#userCrudModal').html("Editar pais");
         $('#btn-update').val("Update");
         $('#btn-save').prop('disabled',false);
         $('#btn-save').html('Guardar');
         $('#crud-modal').modal('show');
         $('#id').val(data.id);
-        $('#documento').val(data.documento);
+        $('#mon_pais').val(data.mon_pais);
+        $('#nom_pais').val(data.nom_pais);
     })
 });
-    //fin editar documento
+    //fin editar pais
     //comienzo de view
     /* Show customer */
-$('body').on('click', '.view-documento', function () {
-    var documento_id = $(this).data('id');
-   $.get('documentos/'+documento_id+'/edit', function (data) {
+$('body').on('click', '.view-pais', function () {
+    var pais_id = $(this).data('id');
+   $.get('paises/'+pais_id+'/edit', function (data) {
 
-    $('#sndocumento').html(data.id);
-    $('#sdocumento').html(data.documento);
+    $('#snpais').html(data.id);
+    $('#smpais').html(data.mon_pais);
+    $('#spais').html(data.nom_pais);
     })
-    $('#userCrudModal-show').html("Detalle documento");
+    $('#userCrudModal-show').html("Detalle Pais");
     $('#crud-modal-show').modal('show');
 });
     //fin de view
-
-
   });
 </script>
-</html><?php /**PATH C:\laragon\www\cambios\resources\views/documentos/index.blade.php ENDPATH**/ ?>
+</html>

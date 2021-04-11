@@ -1,5 +1,11 @@
+<div>
+    <table  height="10px">
+        <td></td>
+    </table>
+</div>
+
 <div class="flex-center position-ref">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-white shadow" style="border-radius: 20px;">
             <div class="container">
                 <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
                     <?php echo e(config('app.name', 'Laravel')); ?>
@@ -37,7 +43,7 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                     document.getElementById('logout-form').submit();"><i class="fas fa-power-off"></i>
                                         <?php echo e(__('Logout')); ?>
 
                                     </a>
@@ -52,4 +58,10 @@
             </div>
         </div>
     </nav>
-</div><?php /**PATH C:\laragon\www\cambios\resources\views/layouts/_nav_table.blade.php ENDPATH**/ ?>
+</div>
+<div>
+    <table  height="10px">
+        <td></td>
+    </table>
+</div>
+<?php /**PATH C:\laragon\www\cambios\resources\views/layouts/_nav_table.blade.php ENDPATH**/ ?>

@@ -17,7 +17,9 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet"/>
+     <link rel="stylesheet" href="<?php echo e(asset('fonts/awesome/font-awesome.min.css')); ?>">
 </head>
 <body>
     <div id="app">
