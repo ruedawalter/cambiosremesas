@@ -16,6 +16,7 @@ class CreatePaisesTable extends Migration
         Schema::create('paises', function (Blueprint $table) {
             $table->id();
             $table->string('nom_pais',60)->unique();
+            $table->string('mon_pais',3);
             $table->integer('id_user_mod');
             $table->timestamps();
         });

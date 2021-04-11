@@ -13,7 +13,7 @@
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            <a class="btn btn-primary mb-2" id="new-pais" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
+                            <a class="btn boton" id="new-pais" data-toggle="modal"><i class="fas fa-plus"></i> Nuevo</a>
                         </div>
                     </div>
                 </div>
@@ -27,8 +27,9 @@
                         <tr>
                             <th width="3%">No</th>
                             <th width="3%">Identificador</th>
-                            <th>Pais</th>
-                            <th width="100px">Acción</th>
+                            <th width="50%">Pais</th>
+                            <th width="5%">Moneda</th>
+                            <th width="10%">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,12 @@
                         <input type="text" name="nom_pais" id="nom_pais" class="form-control" placeholder="Ingrese el Nombre del pais" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Moneda:</strong>
+                        <input type="text" name="mon_pais" id="mon_pais" class="form-control" placeholder="Ingrese la moneda del pais" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                    </div>
+                </div>
             {{-- <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
@@ -66,7 +73,7 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                         <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled>{{__('Save')}}</button>
-                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger">{{__('Cancel')}}</a>
+                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger" data-dismiss="modal">{{__('Cancel')}}</a>
                     </div>
                 </div>
             </form>
@@ -90,8 +97,12 @@
                         <table class="table-responsive ">
                             <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="snpais"></td></h3></tr>
                             <tr height="50px"><td><strong>pais:</strong></td><h3><td id="spais"></td></h3></tr>
-                            <tr><td></td><td style="text-align: right "><a href="" class="btn btn-primary" id="btn-ok">OK</a> </td></tr>
+                            <tr height="50px"><td><strong>Moneda:</strong></td><h3><td id="smpais"></td></h3></tr>
+                            <tr><td></td></tr>
                         </table>
+                        <div class="justify-content-center">
+                            <a href="" class="btn btn-primary" data-dismiss="modal" id="btn-ok">OK</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,6 +142,7 @@ error=false
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
             {data: 'nom_pais', name: 'nom_pais', orderable: false, searchable: true},
+            {data: 'mon_pais', name: 'mon_pais'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
@@ -140,6 +152,7 @@ error=false
             // $('#btn-save').val('create-pais');
             $('#id').val('');
             $('#nom_pais').val('');
+            $('#mon_pais').val('');
             $('#paisForm').trigger('reset');
             $('#userCrudModal').html('Agregar pais');
             $('#crud-modal').modal('show');
@@ -171,7 +184,7 @@ error=false
                 $('#btn-save').html('Guardar');
                 $('#paisForm').trigger('reset');
                 $('#crud-modal').modal('hide');
-                  table.draw();
+                table.draw();
                 alert('El pais ' + pais + ' se encuentra registrado' );
                 //   $('#userCrudModal').html("paiss");
                   console.log('Error:', data);
@@ -180,16 +193,6 @@ error=false
       });
     });
     //fin
-    //inicio boton cancelar
-         $('#btn-cancel').click(function () {
-            $(this).html('Cancelando....');
-            $('#paisForm').trigger('reset');
-            $('#crud-modal').modal('hide');
-             // table.draw();
-             $(this).html('Cancelar');
-            });
-
-    // fin boton cancelar
     //editar pais
     /* Edit customer */
 $('body').on('click','.edit-pais', function () {
@@ -201,6 +204,7 @@ $('body').on('click','.edit-pais', function () {
         $('#btn-save').html('Guardar');
         $('#crud-modal').modal('show');
         $('#id').val(data.id);
+        $('#mon_pais').val(data.mon_pais);
         $('#nom_pais').val(data.nom_pais);
     })
 });
@@ -212,23 +216,13 @@ $('body').on('click', '.view-pais', function () {
    $.get('paises/'+pais_id+'/edit', function (data) {
 
     $('#snpais').html(data.id);
+    $('#smpais').html(data.mon_pais);
     $('#spais').html(data.nom_pais);
     })
-    $('#userCrudModal-show').html("Detalle pais");
+    $('#userCrudModal-show').html("Detalle Pais");
     $('#crud-modal-show').modal('show');
 });
     //fin de view
-//inicio boton Ok view
-    //inicio boton cancelar
-         $('#btn-ok').click(function () {
-            $('#spais').html('');
-            $('#snpais').html('');
-            $('#crud-modal-show').modal('hide');
-            });
-
-    // fin boton cancelar
-//Fin boton ok view
-
   });
 </script>
 </html>

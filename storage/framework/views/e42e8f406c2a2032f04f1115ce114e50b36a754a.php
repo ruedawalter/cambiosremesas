@@ -1,13 +1,13 @@
 
-    @include('layouts._head_table')
+    <?php echo $__env->make('layouts._head_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 <body>
-    @include('layouts._nav_table')
+    <?php echo $__env->make('layouts._nav_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
             <div class="card-header shadow">
-                <h3 class="card-title"><i class="fas fa-info"></i>  {{($titulo)}}</h3>
+                <h3 class="card-title"><i class="fas fa-info"></i>  <?php echo e(($titulo)); ?></h3>
                 <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
 
                 <div class="row">
@@ -46,10 +46,10 @@
                 <h4 class="modal-title" id="userCrudModal"></h4>
             </div>
         <div class="modal-body">
-            <form name="estadoForm" id="estadoForm"> {{--action="{{ route('estados.store') }}" method="POST"> --}}
-                     {{-- @csrf --}}
+            <form name="estadoForm" id="estadoForm"> 
+                     
             <input type="hidden" name="id" id="id" >
-            {{-- @csrf --}}
+            
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
@@ -57,16 +57,11 @@
                         <input type="text" name="estado" id="estado" class="form-control" placeholder="Ingrese el Nombre del estado" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
-            {{-- <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Email:</strong>
-                    <input type="text" name="email" id="email" class="form-control" placeholder="Email" onchange="validate()">
-                </div>
-            </div> --}}
+            
 
                     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled>{{__('Save')}}</button>
-                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger" data-dismiss="modal">{{__('Cancel')}}</a>
+                        <button type="submit" id="btn-save" name="btnsave" class="btn btn-primary" disabled><?php echo e(__('Save')); ?></button>
+                        <a href="" id="btn-cancel" name="btncancel" class="btn btn-danger" data-dismiss="modal"><?php echo e(__('Cancel')); ?></a>
                     </div>
                 </div>
             </form>
@@ -74,8 +69,8 @@
     </div>
 </div>
 </div>
-{{-- Fin de modal --}}
-{{-- Inicio de modal View --}}
+
+
 <!-- Show user modal -->
 <div class="modal fade" id="crud-modal-show" aria-hidden="true" >
     <div class="modal-dialog">
@@ -102,9 +97,9 @@
     </div>
 </div>
 
-{{-- Fin de View --}}
+
 </body>
-@include('layouts._footer')
+<?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script type="text/javascript">
 error=false
 
@@ -129,7 +124,7 @@ error=false
         serverSide: true,
         responsive: true,
         language: {"url": "js/Spanish.json"},
-        ajax: "{{ route('estados.index') }}",
+        ajax: "<?php echo e(route('estados.index')); ?>",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
@@ -154,7 +149,7 @@ error=false
             $(this).html('Guardando....');
             $.ajax({
               data: $('#estadoForm').serialize(),
-              url: "{{ route('estados.store') }}",
+              url: "<?php echo e(route('estados.store')); ?>",
               type: "POST",
               dataType: 'json',
               success: function (data) {
@@ -214,4 +209,4 @@ $('body').on('click', '.view-estado', function () {
 
   });
 </script>
-</html>
+</html><?php /**PATH C:\laragon\www\cambios\resources\views/estados/index.blade.php ENDPATH**/ ?>

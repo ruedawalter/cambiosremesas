@@ -33,6 +33,10 @@ Route::get('estados/{id}/edit/','EstadoController@edit');
 //paises
 Route::resource('paises','PaisController');
 Route::get('paises/{id}/edit/','PaisController@edit');
+//Titulares
+Route::resource('titulares','TitularController');
+Route::get('titulares/{id}/edit/','TitularController@edit');
+Route::get('titulares/{id}','TitularController@show');
 
 
 
