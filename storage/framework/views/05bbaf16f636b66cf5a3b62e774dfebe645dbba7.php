@@ -7,7 +7,7 @@
 <div class="flex-center position-ref">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow" style="border-radius: 20px;">
             <div class="container">
-                <a class="navbar-brand" href="<?php echo e(url('/')); ?>">
+                <a class="navbar-brand" href="<?php echo e(route('home')); ?>">
                     <?php echo e(config('app.name', 'Laravel')); ?>
 
                 </a>

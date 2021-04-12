@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Titulare;
-use App\Documento;
+use App\Documentot;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
@@ -24,9 +24,9 @@ class TitularController extends Controller
     }
     public function index(Request $request)
     {
-        $doc = Documento::orderBy('documento','ASC')->get();
+        $doc = Documentot::orderBy('id','ASC')->get();
         if ($request->ajax()) {
-            $data = DB::select('SELECT t.id,t.nom_tit,t.id_doc_tit,t.doc_tit,t.tel_tit,t.email_tit,t.id_user_mod,d.documento as documentot from titulares t JOIN documentos d on t.id_doc_tit = d.id order By t.nom_tit ');
+            $data = DB::select('SELECT t.id,t.nom_tit,t.id_doc_tit,t.doc_tit,t.tel_tit,t.email_tit,t.id_user_mod,d.documento, concat(d.documento,"-",t.doc_tit) doct from titulares t JOIN documentot d on t.id_doc_tit = d.id order By t.nom_tit ');
             // $data = Titulare::orderBy('nom_tit','ASC')->get();
             return Datatables::of($data)
                     ->addIndexColumn()
@@ -102,7 +102,7 @@ if(empty($request->id))
     {
         // $where = array('id' => $id);
         // $data = Titulare::where($where)->first();
-         $data = DB::select ('SELECT t.id,t.nom_tit,t.id_doc_tit,t.doc_tit,t.tel_tit,t.email_tit,t.id_user_mod,d.documento from titulares t JOIN documentos d on d.id = t.id_doc_tit where t.id =?',[$id]);
+         $data = DB::select ('SELECT t.id,t.nom_tit,t.id_doc_tit,t.doc_tit,t.tel_tit,t.email_tit,t.id_user_mod,d.documento, concat(d.documento,"-",t.doc_tit) doct from titulares t JOIN documentot d on d.id = t.id_doc_tit where t.id =?',[$id]);
 
         return response()->json($data);
     }

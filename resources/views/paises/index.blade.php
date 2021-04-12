@@ -8,8 +8,8 @@
         <div class="card-body">
             <div class="card-header shadow">
                 <h3 class="card-title"><i class="fas fa-globe"></i>  {{($titulo)}}</h3>
-                <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
-
+                {{-- <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
+ --}}
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
@@ -118,7 +118,7 @@ error=false
 
         function validate()
         {
-            if(document.paisForm.nom_pais.value !='' )
+            if(document.paisForm.nom_pais.value !='' && document.paisForm.mon_pais.value !='' )
             document.paisForm.btnsave.disabled=false
             else
             document.paisForm.btnsave.disabled=true

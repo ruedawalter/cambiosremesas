@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="card-header shadow">
                 <h3 class="card-title"><i class="fas fa-university"></i>  <?php echo e(($titulo)); ?></h3>
-                <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
+                
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">

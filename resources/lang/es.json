@@ -66,5 +66,12 @@
   "Save": "Guardar",
   "Cancel": "Cancelar",
   "Create new user": "Crear Nuevo Usuario",
+  "Banks": "Bancos",
+  "Documents": "Documentos",
+  "Countries": "Paises",
+  "Status": "Estados",
+  "Owners": "Titulares",
+  "Type Documents": "Tipo Documento",
   "New User": "Nuevo Usuario"
+
 }

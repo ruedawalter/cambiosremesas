@@ -7,8 +7,8 @@
     <div class="card" style="width: 100%;">
         <div class="card-body">
             <div class="card-header shadow">
-                <h3 class="card-title"><i class="far fa-id-card"></i>  <?php echo e(($titulo)); ?></h3>
-                <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
+                <h3 class="card-title"><i class="far fa-file-alt"></i>  <?php echo e(($titulo)); ?></h3>
+               
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>documento:</strong>
+                        <strong>Documento:</strong>
                         <input type="text" name="documento" id="documento" class="form-control" placeholder="Ingrese el Nombre del documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                     <div class="col-xs-10 col-sm-10 col-md-10 ">
                         <table class="table-responsive ">
                             <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="sndocumento"></td></h3></tr>
-                            <tr height="50px"><td><strong>documento:</strong></td><h3><td id="sdocumento"></td></h3></tr>
+                            <tr height="50px"><td><strong>Documento:</strong></td><h3><td id="sdocumento"></td></h3></tr>
                             <tr><td></td></tr>
                         </table>
                         <div class="justify-content-center">

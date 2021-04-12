@@ -16,11 +16,16 @@ class AdminAgente
      */
     public function handle($request, Closure $next)
     {
-        if ((auth()->user()->id_rol_user) == 1 or (auth()->user()->id_rol_user) == 2 ){
+        if (Auth::check()){
+            if ((auth()->user()->id_rol_user) == 1 or (auth()->user()->id_rol_user) == 2 ){
             return $next($request);
+            }else{
+                return redirect('home');
+            }
         }else{
             return redirect('login');
         }
+
 
     }
 }
