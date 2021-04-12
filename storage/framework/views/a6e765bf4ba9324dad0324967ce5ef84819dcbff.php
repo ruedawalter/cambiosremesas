@@ -7,8 +7,8 @@
     <div class="card" style="width: 100%;">
         <div class="card-body">
             <div class="card-header shadow">
-                <h3 class="card-title"><i class="far fa-portrait"></i>  <?php echo e(($titulo)); ?></h3>
-                <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
+                <h3 class="card-title"><i class="far fa-address-card"></i>  <?php echo e(($titulo)); ?></h3>
+               
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
@@ -28,8 +28,7 @@
                             <th width="3%">No</th>
                             <th width="3%">Id</th>
                             <th width="30%">Titular</th>
-                            <th width="5%">Tipo Documento</th>
-                            <th width="15%">N° Documento</th>
+                            <th width="5%">Documento</th>
                             <th width="20%">Teléfono</th>
                             <th width="30%">Email</th>
                             <th width="100px">Acción</th>
@@ -65,7 +64,7 @@
                 <div class="form-group row">
                             <label for="id_doc_tit" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Type document')); ?></label>
 
-                            <div class="col-md-6">
+                            <div class="col-sm-2 col-md-4 col-lg-4">
                                 <select class="form-control bg-light shadow-sm col-8" name ="id_doc_tit" id="id_doc_tit"  class="form-control" required>
                                 <option value="">--<?php echo e(__('Select')); ?>--</option>
                                 <?php $__currentLoopData = $doc; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $documento): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -77,20 +76,40 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>N° Documento:</strong>
-                        <input type="text" name="doc_tit" id="doc_tit" class="form-control" placeholder="Ingrese el N° de documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                        <input type="tel" name="doc_tit" id="doc_tit" class="form-control" placeholder="Ingrese el N° de documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Teléfono:</strong>
-                        <input type="text" name="tel_tit" id="tel_tit" class="form-control" placeholder="Ingrese el N° de Teléfono" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                        <input type="tel" name="tel_tit" id="tel_tit" class="form-control" placeholder="Ingrese el N° de Teléfono" onchange="validate()"  >
                     </div>
                 </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <input type="text" name="email_tit" id="email_tit" class="form-control" placeholder="Ingrese el Mail ejemplo@ejemplo.com" onchange="validate()">
+                    <input type="email" name="email_tit" id="email_tit" class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" placeholder="Ingrese el Mail ejemplo@ejemplo.com" onkeyup="validarEmail()" required style="text-transform:lowercase;" >
+                    <span id="emailOK"></span>
+                    <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                        <span class="invalid-feedback" role="alert">
+                            <strong><?php echo e($message); ?></strong>
+                        </span>
+                    <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                 </div>
             </div>
 
@@ -118,11 +137,11 @@
                 <div class="col-xs-2 col-sm-2 col-md-2"></div>
                     <div class="col-xs-10 col-sm-10 col-md-10 ">
                         <table class="table-responsive ">
-                            <tr height="50px"><td><strong>Identificador:</strong></td><h3><td id="sntit"></td></h3></tr>
-                            <tr height="50px"><td><strong>Titular:</strong></td><h3><td id="stit"></td></h3></tr>
-                            <tr height="50px"><td><strong>Documento:</strong></td><h3><td id="sdoc_tit"></td></h3></tr>
-                            <tr height="50px"><td><strong>Teléfono:</strong></td><h3><td id="stel_tit"></td></h3></tr>
-                            <tr height="50px"><td><strong>Email:</strong></td><h3><td id="semail_tit"></td></h3></tr>
+                            <tr height="50px"><td><strong>Identificador:  </strong></td><h3><td id="sntit"></td></h3></tr>
+                            <tr height="50px"><td><strong>Titular:  </strong></td><h3><td id="stit"></td></h3></tr>
+                            <tr height="50px"><td><strong>Documento:  </strong></td><h3><td id="sdoc_tit"></td></h3></tr>
+                            <tr height="50px"><td><strong>Teléfono:  </strong></td><h3><td id="stel_tit"></td></h3></tr>
+                            <tr height="50px"><td><strong>Email:  </strong></td><h3><td id="semail_tit"></td></h3></tr>
                             <tr><td></td></tr>
                         </table>
                         <div class="justify-content-center">
@@ -139,11 +158,42 @@
 </body>
 <?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <script type="text/javascript">
-error=false
 
+        form = document.querySelector('#titularForm');
+        form.tel_tit.addEventListener('keypress', function (e){
+            if (!soloNumeros(event)){
+            e.preventDefault();
+          }
+        })
+        form.doc_tit.addEventListener('keypress', function (e){
+            if (!soloNumeros(event)){
+            e.preventDefault();
+          }
+        })
+
+        //Solo permite introducir numeros.
+        function soloNumeros(e){
+            var key = e.charCode;
+            console.log(key);
+            return key >= 48 && key <= 57;
+        }
+
+        function validarEmail() {
+            valor = document.titularForm.email_tit.value;
+            valido = document.getElementById('emailOK');
+            // /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/
+            if (/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(valor)){
+                valido.innerText = "La dirección " + valor + " es correcta.";
+                document.titularForm.btnsave.disabled=false
+            } else {
+                valido.innerText = "La dirección " + valor + " es incorrecta.";
+                document.titularForm.btnsave.disabled=true
+            }
+        }
+        error=false
         function validate()
         {
-            if(document.titularForm.nom_tit.value !='' )
+            if(document.titularForm.nom_tit.value !='' && document.titularForm.doc_tit.value !='' && document.titularForm.tel_tit.value !='' && document.titularForm.email_tit.value !='')
             document.titularForm.btnsave.disabled=false
             else
             document.titularForm.btnsave.disabled=true
@@ -167,8 +217,7 @@ error=false
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'id', name: 'id'},
             {data: 'nom_tit', name: 'nom_tit', orderable: false, searchable: true},
-            {data: 'documentot', name: 'documentot'},
-            {data: 'doc_tit', name: 'doc_tit'},
+            {data: 'doct', name: 'doct'},
             {data: 'tel_tit', name: 'tel_tit'},
             {data: 'email_tit', name: 'email_tit'},
             {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -249,7 +298,7 @@ $('body').on('click', '.view-titular', function () {
    $.get('titulares/'+titular_id+'/edit', function (data) {
     $('#sntit').html(data[0].id);
     $('#stit').html(data[0].nom_tit);
-    $('#sdoc_tit').html((data[0].documento)+' '+(data[0].doc_tit));
+    $('#sdoc_tit').html(data[0].doct);
     $('#stel_tit').html(data[0].tel_tit);
     $('#semail_tit').html(data[0].email_tit);
     })

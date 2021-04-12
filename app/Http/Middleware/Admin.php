@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Auth;
 
 class Admin
 {
@@ -15,10 +16,12 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ((auth()->user()->id_rol_user) == 1 ){
+        if (Auth::check() and (auth()->user()->id_rol_user) == 1 ){
             return $next($request);
         }else{
-            return redirect('login');
+             return redirect('login');
         }
+
+
     }
 }

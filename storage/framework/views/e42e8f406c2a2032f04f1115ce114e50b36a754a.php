@@ -8,7 +8,7 @@
         <div class="card-body">
             <div class="card-header shadow">
                 <h3 class="card-title"><i class="fas fa-info"></i>  <?php echo e(($titulo)); ?></h3>
-                <h4 class="card-subtitle"><i class="fas fa-plus"></i>  Agregar y <i class="fas fa-pencil-square-o"></i>  Editar</h4>
+               
 
                 <div class="row">
                     <div class="col-lg-12 margin-tb">
@@ -53,7 +53,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>estado:</strong>
+                        <strong>Estado:</strong>
                         <input type="text" name="estado" id="estado" class="form-control" placeholder="Ingrese el Nombre del estado" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
                     </div>
                 </div>
