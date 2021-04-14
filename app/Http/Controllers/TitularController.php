@@ -26,13 +26,12 @@ class TitularController extends Controller
     {
         $doc = Documentot::orderBy('id','ASC')->get();
         if ($request->ajax()) {
-            $data = DB::select('SELECT t.id,t.nom_tit,t.id_doc_tit,t.doc_tit,t.tel_tit,t.email_tit,t.id_user_mod,d.documento, concat(d.documento,"-",t.doc_tit) doct from titulares t JOIN documentot d on t.id_doc_tit = d.id order By t.nom_tit ');
-            // $data = Titulare::orderBy('nom_tit','ASC')->get();
+            $data = Titulare::queryall();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
-                         $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" class="btn btn-secondary btn-sm view-titular" title="Ver"><i class="fas fa-eye"></i></a>';
-                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Edit" class="edit btn btn-primary btn-sm edit-titular" title="Modificar"><i class="fas fa-pencil-square-o"></i></a>';
+                        $btn = ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="edit" class="btn btn-primary btn-sm edit-titular" title="Modificar"><i class="fas fa-pencil-square-o"></i></a>';
+                        $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="view" class="edit btn btn-secondary btn-sm view-titular" title="Ver"><i class="fas fa-eye"></i></a>';
                         // $btn = $btn.' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="'.$row->id.'" data-original-title="Delete" class="btn btn-danger btn-sm delete-banco"><i class="fas fa-trash"></i></a>';
                             return $btn;
                     })
@@ -42,9 +41,6 @@ class TitularController extends Controller
         $titulo='Titulares';
         return view('titulares.index',compact('data','titulo','doc'));
         }
-
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -69,14 +65,13 @@ class TitularController extends Controller
 
 $uId = $request->id;
 $user_mod = Auth::id();
-Titulare::updateOrCreate(['id' => $uId],['nom_tit' => $request->nom_tit,'id_doc_tit' => $request->id_doc_tit,'doc_tit' => $request->doc_tit,'tel_tit' => $request->tel_tit,'email_tit'=> $request->email_tit, 'id_user_mod' => $user_mod]);
+Titulare::updateOrCreate(['id' => $uId],['nom_tit' => $request->nom_tit,'id_doc_tit' => $request->id_doc_tit,'doc_tit' => $request->doc_tit,'tel_tit' => $request->telefono,'email_tit'=> $request->email_tit, 'id_user_mod' => $user_mod]);
 if(empty($request->id))
     $msg = 'User created successfully.';
     else
     $msg = 'User data is updated successfully';
     return redirect()->route('bancos.index')->with('success',$msg);
 }
-
     /**
      * Display the specified resource.
      *
@@ -85,7 +80,6 @@ if(empty($request->id))
      */
     public function show($id)
     {
-
         // $where = array('id' => $id);
         // $data = Titulare::where($where)->first();
         return Response::json($data);
@@ -100,10 +94,7 @@ if(empty($request->id))
      */
     public function edit($id)
     {
-        // $where = array('id' => $id);
-        // $data = Titulare::where($where)->first();
-         $data = DB::select ('SELECT t.id,t.nom_tit,t.id_doc_tit,t.doc_tit,t.tel_tit,t.email_tit,t.id_user_mod,d.documento, concat(d.documento,"-",t.doc_tit) doct from titulares t JOIN documentot d on d.id = t.id_doc_tit where t.id =?',[$id]);
-
+        $data = Titulare::QueryId($id);
         return response()->json($data);
     }
 

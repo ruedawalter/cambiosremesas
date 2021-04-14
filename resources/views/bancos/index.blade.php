@@ -1,8 +1,7 @@
-
-    @include('layouts._head_table')
-
-<body>
-    @include('layouts._nav_table')
+@extends('layouts.layout')
+@section('title',$titulo)
+@section('content')
+{{-- <body> --}}
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -103,8 +102,11 @@
 </div>
 
 {{-- Fin de View --}}
-</body>
-@include('layouts._footer')
+
+{{-- </body> --}}
+{{-- @include('layouts._footer') --}}
+@endsection
+@section('scripts')
 <script type="text/javascript">
 error=false
 
@@ -218,4 +220,4 @@ $('body').on('click', '.view-banco', function () {
 
   });
 </script>
-</html>
+@endsection
