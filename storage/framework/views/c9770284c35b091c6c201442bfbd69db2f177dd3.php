@@ -1,8 +1,6 @@
 
-    <?php echo $__env->make('layouts._head_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
-
-<body>
-    <?php echo $__env->make('layouts._nav_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->startSection('title',$titulo); ?>
+<?php $__env->startSection('content'); ?>
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -98,21 +96,9 @@
 </div>
 
 
-</body>
-<?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
 <script type="text/javascript">
-error=false
-
-        function validate()
-        {
-            if(document.documentoForm.nom_documento.value !='' )
-            document.documentoForm.btnsave.disabled=false
-            else
-            document.documentoForm.btnsave.disabled=true
-
-
-        }
-
   $(function () {
     $.ajaxSetup({
           headers: {
@@ -210,4 +196,5 @@ $('body').on('click', '.view-documento', function () {
 
   });
 </script>
-</html><?php /**PATH C:\laragon\www\cambios\resources\views/documentos/index.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\cambios\resources\views/documentos/index.blade.php ENDPATH**/ ?>

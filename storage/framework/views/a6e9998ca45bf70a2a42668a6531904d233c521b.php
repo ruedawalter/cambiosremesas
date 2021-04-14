@@ -1,8 +1,7 @@
 
-    <?php echo $__env->make('layouts._head_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->startSection('title',$titulo); ?>
+<?php $__env->startSection('content'); ?>
 
-<body>
-    <?php echo $__env->make('layouts._nav_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -98,8 +97,11 @@
 </div>
 
 
-</body>
-<?php echo $__env->make('layouts._footer', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+
+
+
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('scripts'); ?>
 <script type="text/javascript">
 error=false
 
@@ -213,4 +215,5 @@ $('body').on('click', '.view-banco', function () {
 
   });
 </script>
-</html><?php /**PATH C:\laragon\www\cambios\resources\views/bancos/index.blade.php ENDPATH**/ ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\laragon\www\cambios\resources\views/bancos/index.blade.php ENDPATH**/ ?>

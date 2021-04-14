@@ -76,14 +76,14 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>N° Documento:</strong>
-                        <input type="tel" name="doc_tit" id="doc_tit" class="form-control" placeholder="Ingrese el N° de documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" >
+                        <input type="tel" name="doc_tit" id="doc_tit" class="form-control" placeholder="Ingrese el N° de documento" onchange="validate()" onkeyup="javascript:this.value=this.value.toUpperCase();" onkeypress="" >
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <strong>Teléfono:</strong>
-                        <input type="tel" name="tel_tit" id="tel_tit" class="form-control" placeholder="Ingrese el N° de Teléfono" onchange="validate()"  >
+                        <input type="tel" name="telefono" id="telefono" class="form-control" maxlength="11" placeholder="Ingrese el N° de Teléfono celular" onchange="validate()"  >
                     </div>
                 </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -141,53 +141,12 @@
 </div>
 
 {{-- Fin de View --}}
+
 </body>
 @include('layouts._footer')
+
 <script type="text/javascript">
-
-        form = document.querySelector('#titularForm');
-        form.tel_tit.addEventListener('keypress', function (e){
-            if (!soloNumeros(event)){
-            e.preventDefault();
-          }
-        })
-        form.doc_tit.addEventListener('keypress', function (e){
-            if (!soloNumeros(event)){
-            e.preventDefault();
-          }
-        })
-
-        //Solo permite introducir numeros.
-        function soloNumeros(e){
-            var key = e.charCode;
-            console.log(key);
-            return key >= 48 && key <= 57;
-        }
-
-        function validarEmail() {
-            valor = document.titularForm.email_tit.value;
-            valido = document.getElementById('emailOK');
-            // /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/
-            if (/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(valor)){
-                valido.innerText = "La dirección " + valor + " es correcta.";
-                document.titularForm.btnsave.disabled=false
-            } else {
-                valido.innerText = "La dirección " + valor + " es incorrecta.";
-                document.titularForm.btnsave.disabled=true
-            }
-        }
-        error=false
-        function validate()
-        {
-            if(document.titularForm.nom_tit.value !='' && document.titularForm.doc_tit.value !='' && document.titularForm.tel_tit.value !='' && document.titularForm.email_tit.value !='')
-            document.titularForm.btnsave.disabled=false
-            else
-            document.titularForm.btnsave.disabled=true
-
-
-        }
-
-  $(function () {
+$(function () {
     $.ajaxSetup({
           headers: {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -209,7 +168,8 @@
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
-    //agregar titular
+
+//agregar titular
     /* When click New customer button */
         $('#new-titular').click(function () {
             // $('#btn-save').val('create-titular');
@@ -220,10 +180,12 @@
             $('#crud-modal').modal('show');
         });
     //fin
+
     //Save boton
          $('#btn-save').click(function (e) {
             e.preventDefault();
             $(this).html('Guardando....');
+            modal();
             $.ajax({
               data: $('#titularForm').serialize(),
               url: "{{ route('titulares.store') }}",
@@ -271,7 +233,7 @@ $('body').on('click','.edit-titular', function () {
         $('#id_doc_tit').val(data[0].id_doc_tit);
         // $('#id_doc_tit').html(data[0].documento);
         $('#doc_tit').val(data[0].doc_tit);
-        $('#tel_tit').val(data[0].tel_tit);
+        $('#telefono').val(data[0].tel_tit);
         $('#email_tit').val(data[0].email_tit);
 
     })
@@ -291,12 +253,11 @@ $('body').on('click', '.view-titular', function () {
     $('#userCrudModal-show').html("Detalle del Titular");
     $('#crud-modal-show').modal('show');
 });
+});
     //fin de view
 
 
-    // fin boton cancelar
-//Fin boton ok view
 
-  });
 </script>
+
 </html>

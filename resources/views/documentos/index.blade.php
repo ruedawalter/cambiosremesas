@@ -1,8 +1,6 @@
-
-    @include('layouts._head_table')
-
-<body>
-    @include('layouts._nav_table')
+@extends('layouts.layout')
+@section('title',$titulo)
+@section('content')
 <div class="container">
     <div class="card" style="width: 100%;">
         <div class="card-body">
@@ -103,21 +101,9 @@
 </div>
 
 {{-- Fin de View --}}
-</body>
-@include('layouts._footer')
+@endsection
+@section('scripts')
 <script type="text/javascript">
-error=false
-
-        function validate()
-        {
-            if(document.documentoForm.nom_documento.value !='' )
-            document.documentoForm.btnsave.disabled=false
-            else
-            document.documentoForm.btnsave.disabled=true
-
-
-        }
-
   $(function () {
     $.ajaxSetup({
           headers: {
@@ -215,4 +201,4 @@ $('body').on('click', '.view-documento', function () {
 
   });
 </script>
-</html>
+@endsection
